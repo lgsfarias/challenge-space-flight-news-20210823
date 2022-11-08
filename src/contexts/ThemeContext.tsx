@@ -3,7 +3,7 @@ import { createContext, useCallback, useMemo, useState } from 'react';
 import { darkTheme, lightTheme } from '../style/themes';
 
 interface IThemeContextData {
-  themeName: 'ligth' | 'dark';
+  themeName: 'light' | 'dark';
   toggleTheme: () => void;
 }
 
@@ -14,14 +14,14 @@ interface IThemeContextProviderProps {
 }
 
 export function ThemeContextProvider({ children }: IThemeContextProviderProps) {
-  const [themeName, setThemeName] = useState<'ligth' | 'dark'>('ligth');
+  const [themeName, setThemeName] = useState<'light' | 'dark'>('light');
 
   const toggleTheme = useCallback(() => {
-    setThemeName(themeName === 'ligth' ? 'dark' : 'ligth');
+    setThemeName(themeName === 'light' ? 'dark' : 'light');
   }, [themeName]);
 
   const theme = useMemo(() => {
-    if (themeName === 'ligth') return lightTheme
+    if (themeName === 'light') return lightTheme;
     return darkTheme
   }, [themeName]);
 

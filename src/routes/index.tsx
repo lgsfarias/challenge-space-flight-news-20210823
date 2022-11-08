@@ -1,19 +1,16 @@
-import { Button } from '@mui/material';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from 'react-router-dom';
-import useThemeContext from '../hooks/useThemeContext';
-
+import HomePage from '../pages/HomePage';
 
 export default function AppRoutes() {
-  const {toggleTheme} = useThemeContext();
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Button variant="contained" onClick={toggleTheme}>Toggle Theme</Button>} />
+        <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
