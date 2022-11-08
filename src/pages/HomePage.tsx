@@ -1,27 +1,30 @@
-import { AppBar,Box, Toolbar, Typography } from "@mui/material";
+import { AppBar,Box, Divider, Toolbar, Typography } from "@mui/material";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import ToggleThemeSwitch from "../components/SwitchTheme";
 import SearchInput from "../components/SearchInput";
+import SortFilter from "../components/SortFilter";
 
 
 export default function HomePage() {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} width="100vw">
-        <AppBar position="static">
+        <AppBar position="static" sx={{ boxShadow: 'none', backgroundColor: 'transparent', color: 'text.primary' }}>
           <Toolbar>
             <ToggleThemeSwitch/>
             <SearchInput/>
+            <SortFilter/>
           </Toolbar>
         </AppBar>
-        <Box sx={{ width: 200, height: 200 , border: '1px solid', borderColor: 'text.primary', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 10 }}>
+        <Box sx={{ width: 100, height: 100 , border: '1px solid', borderColor: 'text.primary', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
           <RocketLaunchIcon 
-            sx={{ fontSize: 100, color: 'text.primary'}}
+            sx={{ fontSize: 50, color: 'text.primary'}}
           />
         </Box>
-        <Typography variant="h3" component="h1" sx={{ mt: 5 }} color='text.primary'>
+        <Typography variant="h4" component="h1" sx={{ mt: 3 }} color='text.primary'>
           Space Flight News
         </Typography>
+        <Divider sx={{ width: '100%', mt: 5 }}/>
       </Box>
     </>
   );
