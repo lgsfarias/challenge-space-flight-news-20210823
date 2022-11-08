@@ -18,7 +18,7 @@ export function ThemeContextProvider({ children }: IThemeContextProviderProps) {
 
   const toggleTheme = useCallback(() => {
     setThemeName(themeName === 'ligth' ? 'dark' : 'ligth');
-  }, []);
+  }, [themeName]);
 
   const theme = useMemo(() => {
     if (themeName === 'ligth') return lightTheme
