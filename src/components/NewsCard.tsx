@@ -10,7 +10,7 @@ interface INewsCardProps {
 export default function NewsCard({ index , article}: INewsCardProps) {
   const theme = useTheme();
   return (
-    <Card sx={{ display: 'flex', flexDirection: index % 2 === 0 ? 'row' : 'row-reverse', gap: theme.spacing(2), margin: `${theme.spacing(2)} ${theme.spacing(10)}` , height:300}}>
+    <Card sx={{ display: 'flex', flexDirection: index % 2 === 0 ? 'row' : 'row-reverse', gap: theme.spacing(2), margin: `${theme.spacing(2)} ${theme.spacing(10)}` , height:300, borderRadius: 2, boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)' }}>
       <CardMedia
         component="img"
         sx={{ width: 300, height: 300 }}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import InfiniteScroll from 'react-infinite-scroller';
-import { AppBar,Box, Container, Divider, Toolbar, Typography} from "@mui/material";
+import { AppBar,Box, CircularProgress, Container, Divider, Toolbar, Typography} from "@mui/material";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import ToggleThemeSwitch from "../components/SwitchTheme";
 import SearchInput from "../components/SearchInput";
@@ -33,7 +33,11 @@ export default function HomePage() {
       if (newNews.length === 0) {
         setHasMore(false);
       }
-      setNews((prevNews) => [...(prevNews || []), ...newNews]);
+      if (news) {
+        setNews([...news, ...newNews]);
+      } else {
+        setNews(newNews);
+      }
     }catch(err){
       console.log(err)
     }
@@ -96,7 +100,14 @@ export default function HomePage() {
                 pageStart={0}
                 loadMore={loadNews}
                 hasMore={hasMore}
-                loader={<div className="loader" key={0}>Loading ...</div>}
+                loader={
+                  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' , alignItems: 'center',  margin: 10 }} key={0}>
+                    <CircularProgress color="secondary" />
+                    <Typography variant="caption" component="h2" sx={{ mt: 3 }} color='text.primary' display='flex' justifyContent='center'>
+                      Loading more news...
+                    </Typography>
+                  </Box>
+                }
               >
               {news.map((article,index) => (
                 <NewsCard index={index} article={article} key={article.id} />
