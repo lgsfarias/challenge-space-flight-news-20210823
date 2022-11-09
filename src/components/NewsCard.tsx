@@ -1,5 +1,6 @@
 import { Box, useTheme, Card, CardActions, CardContent, CardMedia, Button, Typography, Skeleton} from '@mui/material';
 import { Article } from '../interfaces';
+import rocketPng from '../assets/rocket.png';
 
 interface INewsCardProps {
   article: Article;
@@ -15,6 +16,10 @@ export default function NewsCard({ index , article}: INewsCardProps) {
         sx={{ width: 300, height: 300 }}
         image={article.imageUrl}
         alt={article.title}
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.src = rocketPng;
+        }}
       />
       <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: theme.spacing(2)}}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: `${theme.spacing(1)}` }}>
