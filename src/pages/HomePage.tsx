@@ -8,13 +8,23 @@ import SortFilter from "../components/SortFilter";
 import NewsCard, { NewsCardSkeleton } from "../components/NewsCard";
 import { Article } from "../interfaces";
 import api from "../services/api";
+import { useSearchParams } from 'react-router-dom';
 
 
 export default function HomePage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [news, setNews] = useState<Article[] | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [sortBy, setSortBy] = useState<'newest' | 'oldest'>('newest');
-  const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useState<string>(searchParams.get('search') || '');
+
+  useEffect(() => {
+    if (search) {
+      setSearchParams({ search });
+    } else {
+      setSearchParams({});
+    }
+  }, [search]);
 
   async function loadNews() {
     try{
