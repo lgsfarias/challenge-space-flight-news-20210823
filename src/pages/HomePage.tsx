@@ -1,4 +1,4 @@
-import { useEffect, useState,useMemo } from "react";
+import { useEffect, useState } from "react";
 import InfiniteScroll from 'react-infinite-scroller';
 import { AppBar,Box, Container, Divider, Toolbar, Typography} from "@mui/material";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
@@ -12,7 +12,9 @@ import api from "../services/api";
 
 export default function HomePage() {
   const [news, setNews] = useState<Article[] | null>(null);
+  const [hasMore, setHasMore] = useState(true);
   const [sortBy, setSortBy] = useState<'newest' | 'oldest'>('newest');
+  const [search, setSearch] = useState<string>('');
 
   async function loadNews() {
     try{
@@ -23,9 +25,14 @@ export default function HomePage() {
         params: {
           _start: offset,
           _sort: sortBy === 'oldest' ? 'id' : 'id:desc',
+          _summary_contains: search,
+          _title_contains: search
         },
       });
       const newNews = response.data;
+      if (newNews.length === 0) {
+        setHasMore(false);
+      }
       setNews((prevNews) => [...(prevNews || []), ...newNews]);
     }catch(err){
       console.log(err)
@@ -40,7 +47,8 @@ export default function HomePage() {
           params: {
             _start: 0,
             _sort: sortBy === 'oldest' ? 'id' : 'id:desc',
-
+            _summary_contains: search,
+            _title_contains: search
           },
         });
         setNews(response.data);
@@ -48,7 +56,7 @@ export default function HomePage() {
         console.log(err)
       }
     })();
-  }, [sortBy]);
+  }, [sortBy, search]);
 
 
   return (
@@ -57,7 +65,7 @@ export default function HomePage() {
         <AppBar position="static" sx={{ boxShadow: 'none', backgroundColor: 'transparent', color: 'text.primary' }}>
           <Toolbar>
             <ToggleThemeSwitch/>
-            <SearchInput/>
+            <SearchInput search={search} setSearch={setSearch}/>
             <SortFilter sortBy={sortBy} setSortBy={setSortBy}/>
           </Toolbar>
         </AppBar>
@@ -71,22 +79,30 @@ export default function HomePage() {
         </Typography>
         <Divider sx={{ width: '100%', mt: 5 }}/>
         <Container sx={{ mt: 5 }}>
-          {news !== null ? (
-            <InfiniteScroll
-              pageStart={0}
-              loadMore={loadNews}
-              hasMore={true}
-              loader={<div className="loader" key={0}>Loading ...</div>}
-            >
-            {news.map((article,index) => (
-              <NewsCard index={index} article={article} key={article.id} />
-            ))}
-            </InfiniteScroll>
-          ) : (
+          {news === null 
+          ? (
             new Array(10).fill(0).map((_, index) => (
               <NewsCardSkeleton index={index} key={index} />
             ))
-          )}
+          ) 
+          : news.length === 0  
+            ? (
+              <Typography variant="h6" component="h2" sx={{ mt: 3 }} color='text.primary' display='flex' justifyContent='center'>
+                No news found
+              </Typography>
+            ) 
+            : (
+              <InfiniteScroll
+                pageStart={0}
+                loadMore={loadNews}
+                hasMore={hasMore}
+                loader={<div className="loader" key={0}>Loading ...</div>}
+              >
+              {news.map((article,index) => (
+                <NewsCard index={index} article={article} key={article.id} />
+              ))}
+              </InfiniteScroll>
+            )}
         </Container>
       </Box>
     </>
