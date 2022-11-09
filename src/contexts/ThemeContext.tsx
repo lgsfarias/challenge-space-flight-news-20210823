@@ -1,4 +1,4 @@
-import { Box, ThemeProvider } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 import { createContext, useCallback, useMemo, useState } from 'react';
 import { darkTheme, lightTheme } from '../style/themes';
 
@@ -28,9 +28,8 @@ export function ThemeContextProvider({ children }: IThemeContextProviderProps) {
   return (
     <ThemeContext.Provider value={{ themeName, toggleTheme }}>
       <ThemeProvider theme={theme}>
-        <Box width='100vw' height='100vh' bgcolor={theme.palette.background.default}>
-          {children}
-        </Box>
+        <CssBaseline />
+        {children}
       </ThemeProvider>
     </ThemeContext.Provider>
   );

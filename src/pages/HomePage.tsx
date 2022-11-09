@@ -1,14 +1,15 @@
-import { AppBar,Box, Divider, Toolbar, Typography } from "@mui/material";
+import { AppBar,Box, Card, Container, Divider, Toolbar, Typography, CardMedia, CardContent, CardActions, Button, useTheme } from "@mui/material";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import ToggleThemeSwitch from "../components/SwitchTheme";
 import SearchInput from "../components/SearchInput";
 import SortFilter from "../components/SortFilter";
+import NewsCard from "../components/NewsCard";
 
 
 export default function HomePage() {
   return (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} width="100vw">
+      <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} width="100%">
         <AppBar position="static" sx={{ boxShadow: 'none', backgroundColor: 'transparent', color: 'text.primary' }}>
           <Toolbar>
             <ToggleThemeSwitch/>
@@ -25,6 +26,11 @@ export default function HomePage() {
           Space Flight News
         </Typography>
         <Divider sx={{ width: '100%', mt: 5 }}/>
+        <Container sx={{ mt: 5 }}>
+          {new Array(10).fill(0).map((_, index) => (
+            <NewsCard index={index} key={index}/>
+          ))}
+        </Container>
       </Box>
     </>
   );
