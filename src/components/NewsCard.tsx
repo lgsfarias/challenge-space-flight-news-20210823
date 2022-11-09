@@ -15,11 +15,11 @@ export default function NewsCard({ index }: INewsCardProps) {
         alt="random image"
       />
       <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: theme.spacing(2)}}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: theme.spacing(1) }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: `${theme.spacing(1)}` }}>
           <Typography variant="h4" component="h2" sx={{ fontWeight: 700 }}>
             SpaceX Launches Falcon 9 Rocket
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' ,gap: theme.spacing(1) }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' ,gap: `${theme.spacing(1)}` }}>
             <Typography variant="body2" color="text.secondary">
               2 days ago
             </Typography>

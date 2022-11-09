@@ -1,4 +1,4 @@
-import { Box, CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createContext, useCallback, useMemo, useState } from 'react';
 import { darkTheme, lightTheme } from '../style/themes';
 
