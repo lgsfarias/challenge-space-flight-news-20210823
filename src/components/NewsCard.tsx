@@ -18,7 +18,7 @@ export default function NewsCard({ index , article}: INewsCardProps) {
       />
       <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: theme.spacing(2)}}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: `${theme.spacing(1)}` }}>
-          <Typography variant="h4" component="h2" sx={{ fontWeight: 700 }}>
+          <Typography variant="h5" component="h2" sx={{ fontWeight: 700 }}>
             {article.title}
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' ,gap: `${theme.spacing(1)}` }}>

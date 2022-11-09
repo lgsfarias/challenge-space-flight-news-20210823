@@ -1,10 +1,11 @@
+import { useEffect, useState,useMemo } from "react";
+import InfiniteScroll from 'react-infinite-scroller';
 import { AppBar,Box, Container, Divider, Toolbar, Typography} from "@mui/material";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import ToggleThemeSwitch from "../components/SwitchTheme";
 import SearchInput from "../components/SearchInput";
 import SortFilter from "../components/SortFilter";
 import NewsCard, { NewsCardSkeleton } from "../components/NewsCard";
-import { useEffect, useState } from "react";
 import { Article } from "../interfaces";
 import api from "../services/api";
 
@@ -12,14 +13,37 @@ import api from "../services/api";
 export default function HomePage() {
   const [news, setNews] = useState<Article[] | null>(null);
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await api.get("/articles", {
+  async function loadNews() {
+    try{
+      // 5 seconds delay to simulate a slow connection
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      const offset = news?.length || 0;
+      const response = await api.get(`/articles`, {
         params: {
-          _limit: 10,
+          _start: offset,
         },
       });
-      setNews(data);
+      const newNews = response.data;
+      setNews((prevNews) => [...(prevNews || []), ...newNews]);
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+
+  useEffect(() => {
+    (async () => {
+      try{
+        const response = await api.get(`/articles`, {
+          params: {
+            _start: 0,
+            _limit: 10,
+          },
+        });
+        setNews(response.data);
+      }catch(err){
+        console.log(err)
+      }
     })();
   }, []);
 
@@ -45,9 +69,17 @@ export default function HomePage() {
         <Divider sx={{ width: '100%', mt: 5 }}/>
         <Container sx={{ mt: 5 }}>
           {news !== null ? (
-            news.map((article,index) => (
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={loadNews}
+              hasMore={true}
+              loader={<div className="loader" key={0}>Loading ...</div>}
+              // useWindow={true}
+            >
+            {news.map((article,index) => (
               <NewsCard index={index} article={article} key={article.id} />
-            ))
+            ))}
+            </InfiniteScroll>
           ) : (
             new Array(10).fill(0).map((_, index) => (
               <NewsCardSkeleton index={index} key={index} />
