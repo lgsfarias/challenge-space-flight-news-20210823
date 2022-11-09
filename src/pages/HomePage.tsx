@@ -4,9 +4,26 @@ import ToggleThemeSwitch from "../components/SwitchTheme";
 import SearchInput from "../components/SearchInput";
 import SortFilter from "../components/SortFilter";
 import NewsCard, { NewsCardSkeleton } from "../components/NewsCard";
+import { useEffect, useState } from "react";
+import { Article } from "../interfaces";
+import api from "../services/api";
 
 
 export default function HomePage() {
+  const [news, setNews] = useState<Article[] | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.get("/articles", {
+        params: {
+          _limit: 10,
+        },
+      });
+      setNews(data);
+    })();
+  }, []);
+
+
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} width="100%">
@@ -27,10 +44,15 @@ export default function HomePage() {
         </Typography>
         <Divider sx={{ width: '100%', mt: 5 }}/>
         <Container sx={{ mt: 5 }}>
-          {new Array(10).fill(0).map((_, index) => (
-            // <NewsCard index={index} key={index}/>
-            <NewsCardSkeleton index={index} key={index}/>
-          ))}
+          {news !== null ? (
+            news.map((article,index) => (
+              <NewsCard index={index} article={article} key={article.id} />
+            ))
+          ) : (
+            new Array(10).fill(0).map((_, index) => (
+              <NewsCardSkeleton index={index} key={index} />
+            ))
+          )}
         </Container>
       </Box>
     </>

@@ -1,38 +1,38 @@
 import { Box, useTheme, Card, CardActions, CardContent, CardMedia, Button, Typography, Skeleton} from '@mui/material';
+import { Article } from '../interfaces';
 
 interface INewsCardProps {
+  article: Article;
   index: number;
-}
+};
 
-export default function NewsCard({ index }: INewsCardProps) {
+export default function NewsCard({ index , article}: INewsCardProps) {
   const theme = useTheme();
   return (
     <Card sx={{ display: 'flex', flexDirection: index % 2 === 0 ? 'row' : 'row-reverse', gap: theme.spacing(2), margin: `${theme.spacing(2)} ${theme.spacing(10)}` , height:300}}>
       <CardMedia
         component="img"
-        sx={{ width: 400, height: 300 }}
-        image="https://source.unsplash.com/random"
-        alt="random image"
+        sx={{ width: 300, height: 300 }}
+        image={article.imageUrl}
+        alt={article.title}
       />
       <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: theme.spacing(2)}}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: `${theme.spacing(1)}` }}>
           <Typography variant="h4" component="h2" sx={{ fontWeight: 700 }}>
-            SpaceX Launches Falcon 9 Rocket
+            {article.title}
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' ,gap: `${theme.spacing(1)}` }}>
             <Typography variant="body2" color="text.secondary">
-              2 days ago
+              {new Date(article.updatedAt).toLocaleDateString()}
             </Typography>
-            <Button variant="outlined" size="small" color="secondary">
-              newsSite
+            <Button variant="outlined" size="small" color="secondary" href={article.url} target="_blank">
+              {article.newsSite}
             </Button>
           </Box>
         </Box>
         <Box sx={{ overflow: 'hidden', textOverflow: 'ellipsis', flex: '1', margin: `${theme.spacing(2)} 0`}}>
           <Typography variant="body1" color="text.secondary">
-            SpaceX launched a Falcon 9 rocket from Cape Canaveral, Florida, on Sunday, carrying a payload of 60 Starlink satellites into orbit.
-            SpaceX launched a Falcon 9 rocket from Cape Canaveral, Florida, on Sunday, carrying a payload of 60 Starlink satellites into orbit.
-            SpaceX launched a Falcon 9 rocket from Cape Canaveral, Florida, on Sunday, carrying a payload of 60 Starlink satellites into orbit.
+            {article.summary}
           </Typography>
         </Box>
         <CardActions sx={{ padding: 0 }}>
