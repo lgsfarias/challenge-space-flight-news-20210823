@@ -1,5 +1,6 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createContext, useCallback, useMemo, useState } from 'react';
+import usePersistedState from '../hooks/usePersistedState';
 import { darkTheme, lightTheme } from '../style/themes';
 
 interface IThemeContextData {
@@ -14,7 +15,7 @@ interface IThemeContextProviderProps {
 }
 
 export function ThemeContextProvider({ children }: IThemeContextProviderProps) {
-  const [themeName, setThemeName] = useState<'light' | 'dark'>('light');
+  const [themeName, setThemeName] = usePersistedState('theme', 'light');
 
   const toggleTheme = useCallback(() => {
     setThemeName(themeName === 'light' ? 'dark' : 'light');
