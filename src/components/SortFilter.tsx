@@ -1,11 +1,15 @@
 import {Box, MenuItem, FormControl, Select, SelectChangeEvent} from '@mui/material';
-import { useState } from 'react';
 
-export default function SortFilter() {
-  const [sortBy, setSortBy] = useState('');
+interface SortFilterProps {
+  sortBy: 'newest' | 'oldest';
+  setSortBy: (sortBy: 'newest' | 'oldest') => void;
+}
+
+export default function SortFilter({ sortBy, setSortBy }: SortFilterProps) {
 
   const handleChange = (event: SelectChangeEvent) => {
-    setSortBy(event.target.value as string);
+    console.log(event.target.value);
+    setSortBy(event.target.value as 'newest' | 'oldest');
   };
 
   return (
@@ -28,8 +32,8 @@ export default function SortFilter() {
           <MenuItem value="" disabled>
             Sort By
           </MenuItem>
-          <MenuItem value={10}>Newest</MenuItem>
-          <MenuItem value={20}>Oldest</MenuItem>
+          <MenuItem value='newest'>Newest</MenuItem>
+          <MenuItem value='oldest'>Oldest</MenuItem>
         </Select>
       </FormControl>
     </Box>

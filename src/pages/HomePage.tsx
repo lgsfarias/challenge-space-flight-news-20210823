@@ -12,6 +12,7 @@ import api from "../services/api";
 
 export default function HomePage() {
   const [news, setNews] = useState<Article[] | null>(null);
+  const [sortBy, setSortBy] = useState<'newest' | 'oldest'>('newest');
 
   async function loadNews() {
     try{
@@ -21,6 +22,7 @@ export default function HomePage() {
       const response = await api.get(`/articles`, {
         params: {
           _start: offset,
+          _sort: sortBy === 'oldest' ? 'id' : 'id:desc',
         },
       });
       const newNews = response.data;
@@ -37,7 +39,8 @@ export default function HomePage() {
         const response = await api.get(`/articles`, {
           params: {
             _start: 0,
-            _limit: 10,
+            _sort: sortBy === 'oldest' ? 'id' : 'id:desc',
+
           },
         });
         setNews(response.data);
@@ -45,7 +48,7 @@ export default function HomePage() {
         console.log(err)
       }
     })();
-  }, []);
+  }, [sortBy]);
 
 
   return (
@@ -55,7 +58,7 @@ export default function HomePage() {
           <Toolbar>
             <ToggleThemeSwitch/>
             <SearchInput/>
-            <SortFilter/>
+            <SortFilter sortBy={sortBy} setSortBy={setSortBy}/>
           </Toolbar>
         </AppBar>
         <Box sx={{ width: 100, height: 100 , border: '1px solid', borderColor: 'text.primary', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
@@ -74,7 +77,6 @@ export default function HomePage() {
               loadMore={loadNews}
               hasMore={true}
               loader={<div className="loader" key={0}>Loading ...</div>}
-              // useWindow={true}
             >
             {news.map((article,index) => (
               <NewsCard index={index} article={article} key={article.id} />
