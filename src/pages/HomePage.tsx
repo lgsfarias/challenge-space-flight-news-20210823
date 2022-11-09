@@ -3,7 +3,7 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import ToggleThemeSwitch from "../components/SwitchTheme";
 import SearchInput from "../components/SearchInput";
 import SortFilter from "../components/SortFilter";
-import NewsCard from "../components/NewsCard";
+import NewsCard, { NewsCardSkeleton } from "../components/NewsCard";
 
 
 export default function HomePage() {
@@ -28,7 +28,8 @@ export default function HomePage() {
         <Divider sx={{ width: '100%', mt: 5 }}/>
         <Container sx={{ mt: 5 }}>
           {new Array(10).fill(0).map((_, index) => (
-            <NewsCard index={index} key={index}/>
+            // <NewsCard index={index} key={index}/>
+            <NewsCardSkeleton index={index} key={index}/>
           ))}
         </Container>
       </Box>
