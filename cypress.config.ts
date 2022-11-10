@@ -1,6 +1,5 @@
 import { defineConfig } from 'cypress';
 
-// don't save videos
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
