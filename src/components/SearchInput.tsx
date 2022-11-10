@@ -19,13 +19,14 @@ export default function SearchInput({ setSearch }: ISearchInputProps) {
       }}
     >
       <TextField
+        className='search-input'
         inputRef={searchRef}
         placeholder='Search…'
         InputProps={{
           sx: { height: 40 , backgroundColor: 'transparent', color: 'text.primary', border: '1px solid', borderColor: 'text.primary' },
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton type='submit' sx={{ color: 'text.primary' , mr: -2 }}>
+              <IconButton type='submit' sx={{ color: 'text.primary' , mr: -2 }} className='search-button'>
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
