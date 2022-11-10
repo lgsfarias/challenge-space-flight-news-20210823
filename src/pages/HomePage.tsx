@@ -28,14 +28,13 @@ export default function HomePage() {
 
   async function loadNews() {
     try{
-      // 5 seconds delay to simulate a slow connection
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+      // 3 seconds delay to simulate a slow connection
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       const offset = news?.length || 0;
       const response = await api.get(`/articles`, {
         params: {
           _start: offset,
           _sort: sortBy === 'oldest' ? 'id' : 'id:desc',
-          _summary_contains: search,
           _title_contains: search
         },
       });
@@ -61,7 +60,6 @@ export default function HomePage() {
           params: {
             _start: 0,
             _sort: sortBy === 'oldest' ? 'id' : 'id:desc',
-            _summary_contains: search,
             _title_contains: search
           },
         });
