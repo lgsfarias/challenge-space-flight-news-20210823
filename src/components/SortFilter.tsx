@@ -16,6 +16,7 @@ export default function SortFilter({ sortBy, setSortBy }: SortFilterProps) {
     <Box sx={{ minWidth: 120, backgroundColor: 'transparent', color: 'text.primary', ml: 2}}>
       <FormControl fullWidth >
         <Select
+          className='sort-filter'
           value={sortBy}
           onChange={handleChange}
           displayEmpty

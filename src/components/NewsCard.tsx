@@ -17,7 +17,10 @@ export default function NewsCard({ index , article}: INewsCardProps) {
   return (
     <>
       <NewsModal open={modalOpen} setOpen={setModalOpen} article={modalArticle} />
-      <Card sx={{ display: 'flex', flexDirection: index % 2 === 0 ? 'row' : 'row-reverse', gap: theme.spacing(2), margin: `${theme.spacing(2)} ${theme.spacing(10)}` , height:300, borderRadius: 2, boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)' }}>
+      <Card 
+        sx={{ display: 'flex', flexDirection: index % 2 === 0 ? 'row' : 'row-reverse', gap: theme.spacing(2), margin: `${theme.spacing(2)} ${theme.spacing(10)}` , height:300, borderRadius: 2, boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)' }} 
+        className="news-card" 
+        id={`${article.id}`}>
         <CardMedia
           component="img"
           sx={{ width: 300, height: 300 }}
@@ -37,7 +40,7 @@ export default function NewsCard({ index , article}: INewsCardProps) {
               <Typography variant="body2" color="text.secondary">
                 {new Date(article.updatedAt).toLocaleDateString()}
               </Typography>
-              <Button variant="outlined" size="small" color="secondary" href={article.url} target="_blank">
+              <Button variant="outlined" size="small" color="secondary" href={article.url} target="_blank" className='news-site-button'>
                 {article.newsSite}
               </Button>
             </Box>
@@ -74,7 +77,7 @@ interface INewsCardSkeletonProps {
 export function NewsCardSkeleton({ index }: INewsCardSkeletonProps) {
   const theme = useTheme();
   return (
-    <Card sx={{ display: 'flex', flexDirection: index % 2 === 0 ? 'row' : 'row-reverse', gap: theme.spacing(2), margin: `${theme.spacing(2)} ${theme.spacing(10)}` , height:300}}>
+    <Card sx={{ display: 'flex', flexDirection: index % 2 === 0 ? 'row' : 'row-reverse', gap: theme.spacing(2), margin: `${theme.spacing(2)} ${theme.spacing(10)}` , height:300}} className="skeleton-card">
       <Skeleton variant="rectangular" sx={{ width: 300, height: 300 }} />
       <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: theme.spacing(2), flex: 1}}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: `${theme.spacing(1)}` }}>

@@ -11,6 +11,7 @@ export default function ToggleThemeSwitch() {
         sx={{ ml: 1}}
         onClick={toggleTheme}
         color="inherit"
+        className="toggle-theme"
       >
         {themeName === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
       </IconButton>
