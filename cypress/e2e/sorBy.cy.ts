@@ -25,5 +25,5 @@ describe('Sort By', () => {
       const ids = $cards.map((_, card) => card.id).get();
       expect(ids).to.deep.equal(ids.sort());
     });
-  }
+  });
 });

@@ -9,9 +9,8 @@
     "preview": "vite preview",
     "dev:docker": "docker-compose -f docker-compose.dev.yml up --build",
     "start:docker": "docker-compose up --build",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "test:e2e": "npm run cy:run"
+    "cy:open": "npx cypress open",
+    "cy:run": "npx cypress run"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
