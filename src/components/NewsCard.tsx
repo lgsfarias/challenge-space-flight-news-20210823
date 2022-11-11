@@ -17,7 +17,10 @@ export default function NewsCard({ index , article}: INewsCardProps) {
   return (
     <>
       <NewsModal open={modalOpen} setOpen={setModalOpen} article={modalArticle} />
-      <Card sx={{ display: 'flex', flexDirection: index % 2 === 0 ? 'row' : 'row-reverse', gap: theme.spacing(2), margin: `${theme.spacing(2)} ${theme.spacing(10)}` , height:300, borderRadius: 2, boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)' }} className="news-card">
+      <Card 
+        sx={{ display: 'flex', flexDirection: index % 2 === 0 ? 'row' : 'row-reverse', gap: theme.spacing(2), margin: `${theme.spacing(2)} ${theme.spacing(10)}` , height:300, borderRadius: 2, boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)' }} 
+        className="news-card" 
+        id={`${article.id}`}>
         <CardMedia
           component="img"
           sx={{ width: 300, height: 300 }}
