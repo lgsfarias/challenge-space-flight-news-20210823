@@ -1,4 +1,4 @@
-# Frontend Challenge 20210823
+# Coodesh Frontend Challenge 20210823
 
 <p align="center">
   <a href="https://github.com/lgsfarias/challenge-space-flight-news-20210823">
